@@ -1,4 +1,4 @@
-FROM public.ecr.aws/e5r9m0c5/jenkins-jdk:v0.0.11
+FROM public.ecr.aws/e5r9m0c5/jenkins-jdk:v1.0.0
 
 # Ensure system is up to date and install tools
 RUN echo 'deb http://archive.ubuntu.com/ubuntu/ focal-proposed restricted main multiverse universe' > /etc/apt/sources.list.d/focal-proposed.list && \
