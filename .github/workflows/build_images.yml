@@ -1,0 +1,167 @@
+name: Build jenkins-agent-containers
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  id-token: write # required to use OIDC authentication
+  contents: read
+
+jobs:
+  jdk:
+    name: Build jdk container and push to public ECR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the version
+        id: get-version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::645843940509:role/github-actions-ecr-public-create-read-write
+          role-duration-seconds: 900 # Member must have value greater than or equal to 900
+          aws-region: us-east-1
+      # Using this until https://github.com/aws-actions/amazon-ecr-login/issues/116
+      # is closed
+      - name: Build and Push to ECR public
+        id: build-and-push
+        uses: pahud/ecr-public-action@0db8adbcfd3c3ec2f604d70fdd6b5d15c80e1dbc
+        with:
+          dockerfile: jdk/Dockerfile
+          context: jdk/
+          tags: |
+            public.ecr.aws/e5r9m0c5/jenkins-jdk:${{ steps.get-version.outputs.VERSION }}
+  nodejs:
+    name: Build nodejs container and push to public ECR
+    runs-on: ubuntu-latest
+    needs: jdk
+    steps:
+      - name: Get the version
+        id: get-version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::645843940509:role/github-actions-ecr-public-create-read-write
+          role-duration-seconds: 900 # Member must have value greater than or equal to 900
+          aws-region: us-east-1
+      # Using this until https://github.com/aws-actions/amazon-ecr-login/issues/116
+      # is closed
+      - name: Build and Push to ECR public
+        id: build-and-push
+        uses: pahud/ecr-public-action@0db8adbcfd3c3ec2f604d70fdd6b5d15c80e1dbc
+        with:
+          dockerfile: nodejs/Dockerfile
+          context: nodejs/
+          tags: |
+            public.ecr.aws/e5r9m0c5/jenkins-nodejs:${{ steps.get-version.outputs.VERSION }}
+  python37:
+    name: Build python37 container and push to public ECR
+    runs-on: ubuntu-latest
+    needs: jdk
+    steps:
+      - name: Get the version
+        id: get-version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::645843940509:role/github-actions-ecr-public-create-read-write
+          role-duration-seconds: 900 # Member must have value greater than or equal to 900
+          aws-region: us-east-1
+      # Using this until https://github.com/aws-actions/amazon-ecr-login/issues/116
+      # is closed
+      - name: Build and Push to ECR public
+        id: build-and-push
+        uses: pahud/ecr-public-action@0db8adbcfd3c3ec2f604d70fdd6b5d15c80e1dbc
+        with:
+          dockerfile: python37/Dockerfile
+          context: python37/
+          tags: |
+            public.ecr.aws/e5r9m0c5/jenkins-python37:${{ steps.get-version.outputs.VERSION }}
+  python38:
+    name: Build python38 container and push to public ECR
+    runs-on: ubuntu-latest
+    needs: jdk
+    steps:
+      - name: Get the version
+        id: get-version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::645843940509:role/github-actions-ecr-public-create-read-write
+          role-duration-seconds: 900 # Member must have value greater than or equal to 900
+          aws-region: us-east-1
+      # Using this until https://github.com/aws-actions/amazon-ecr-login/issues/116
+      # is closed
+      - name: Build and Push to ECR public
+        id: build-and-push
+        uses: pahud/ecr-public-action@0db8adbcfd3c3ec2f604d70fdd6b5d15c80e1dbc
+        with:
+          dockerfile: python38/Dockerfile
+          context: python38/
+          tags: |
+            public.ecr.aws/e5r9m0c5/jenkins-python38:${{ steps.get-version.outputs.VERSION }}
+  python39:
+    name: Build python39 container and push to public ECR
+    runs-on: ubuntu-latest
+    needs: jdk
+    steps:
+      - name: Get the version
+        id: get-version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::645843940509:role/github-actions-ecr-public-create-read-write
+          role-duration-seconds: 900 # Member must have value greater than or equal to 900
+          aws-region: us-east-1
+      # Using this until https://github.com/aws-actions/amazon-ecr-login/issues/116
+      # is closed
+      - name: Build and Push to ECR public
+        id: build-and-push
+        uses: pahud/ecr-public-action@0db8adbcfd3c3ec2f604d70fdd6b5d15c80e1dbc
+        with:
+          dockerfile: python39/Dockerfile
+          context: python39/
+          tags: |
+            public.ecr.aws/e5r9m0c5/jenkins-python39:${{ steps.get-version.outputs.VERSION }}
+  ruby:
+    name: Build ruby container and push to public ECR
+    runs-on: ubuntu-latest
+    needs: jdk
+    steps:
+      - name: Get the version
+        id: get-version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::645843940509:role/github-actions-ecr-public-create-read-write
+          role-duration-seconds: 900 # Member must have value greater than or equal to 900
+          aws-region: us-east-1
+      # Using this until https://github.com/aws-actions/amazon-ecr-login/issues/116
+      # is closed
+      - name: Build and Push to ECR public
+        id: build-and-push
+        uses: pahud/ecr-public-action@0db8adbcfd3c3ec2f604d70fdd6b5d15c80e1dbc
+        with:
+          dockerfile: ruby/Dockerfile
+          context: ruby/
+          tags: |
+            public.ecr.aws/e5r9m0c5/jenkins-ruby:${{ steps.get-version.outputs.VERSION }}

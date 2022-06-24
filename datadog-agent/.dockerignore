@@ -1,6 +1,0 @@
-.circleci
-.pytest_cache
-.gitignore
-.idea
-*.env
-*.iml

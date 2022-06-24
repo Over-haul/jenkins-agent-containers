@@ -1,5 +1,0 @@
-.circleci
-.pytest_cache
-.idea
-*.iml
-docker-compose.yml

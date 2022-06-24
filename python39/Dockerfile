@@ -1,4 +1,4 @@
-FROM nxtlytics/base:v0.0.11
+FROM public.ecr.aws/e5r9m0c5/jenkins-jdk:v0.0.11
 
 # Ensure system is up to date and install tools
 RUN echo 'deb http://archive.ubuntu.com/ubuntu/ focal-proposed restricted main multiverse universe' > /etc/apt/sources.list.d/focal-proposed.list && \
@@ -24,5 +24,3 @@ RUN echo 'deb http://archive.ubuntu.com/ubuntu/ focal-proposed restricted main m
       /var/log/dpkg.log \
       /var/tmp/* \
       /tmp/*
-
-ADD .VERSION /opt/ivy/meta/PYTHON39_VERSION
