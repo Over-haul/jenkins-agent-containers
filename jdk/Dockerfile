@@ -80,7 +80,7 @@ RUN echo '===> Starting setup' && \
     python3.8 -m pip install \
       boto3 \
       jira \
-      prefect \
+      prefect==1.2.0 \
       psycopg2-binary==2.9.3 \
       PyGithub \
       pytz \
