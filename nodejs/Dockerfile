@@ -1,4 +1,4 @@
-FROM public.ecr.aws/e5r9m0c5/jenkins-jdk:v1.0.0
+FROM public.ecr.aws/e5r9m0c5/jenkins-jdk:v1.0.1
 
 # Install tools
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
