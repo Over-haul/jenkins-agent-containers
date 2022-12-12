@@ -1,10 +1,10 @@
 FROM public.ecr.aws/e5r9m0c5/jenkins-jdk:v1.0.2
 
-ENV RUBY_INSTALL_VERSION=0.8.1
-ENV RUBY_VERSION=2.7.2
+ENV RUBY_INSTALL_VERSION=0.8.5
+ENV RUBY_VERSION=3.1.2
 
 # Ensure system is up to date and install tools
-RUN echo 'deb http://archive.ubuntu.com/ubuntu/ focal-proposed restricted main multiverse universe' > /etc/apt/sources.list.d/focal-proposed.list ; \
+RUN echo 'deb http://archive.ubuntu.com/ubuntu/ jammy-proposed restricted main multiverse universe' > /etc/apt/sources.list.d/jammy-proposed.list ; \
     apt update ; \
     apt install -y \
         autoconf \

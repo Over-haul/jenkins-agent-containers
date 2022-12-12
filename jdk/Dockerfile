@@ -1,4 +1,4 @@
-FROM ubuntu:focal-20220826
+FROM ubuntu:jammy-20221130
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL=C.UTF-8
@@ -26,7 +26,7 @@ ADD 01_nodoc /etc/dpkg/dpkg.conf.d/01_nodoc
 # Ensure system is up to date and install tools
 COPY jenkins-agent /usr/local/bin/jenkins-agent
 RUN echo '===> Starting setup' && \
-    echo 'deb http://archive.ubuntu.com/ubuntu/ focal-proposed restricted main multiverse universe' > /etc/apt/sources.list.d/focal-proposed.list && \
+    echo 'deb http://archive.ubuntu.com/ubuntu/ jammy-proposed restricted main multiverse universe' > /etc/apt/sources.list.d/jammy-proposed.list && \
     echo '===> Installing apt dependencies' && \
     apt update && \
     apt install -y \
@@ -75,9 +75,9 @@ RUN echo '===> Starting setup' && \
     chown -R jenkins: /home/${user} && \
     echo '===> Installing python pip' && \
     curl -sL https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py && \
-    python3.8 /tmp/get-pip.py && \
+    python3.10 /tmp/get-pip.py && \
     echo '===> Installing pip dependencies' && \
-    python3.8 -m pip install \
+    python3.10 -m pip install \
       boto3 \
       jira \
       prefect==1.2.0 \
