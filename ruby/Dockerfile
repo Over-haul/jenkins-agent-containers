@@ -1,4 +1,4 @@
-FROM public.ecr.aws/e5r9m0c5/jenkins-jdk:v1.0.2
+FROM public.ecr.aws/e5r9m0c5/jenkins-jdk:v1.0.3
 
 ENV RUBY_INSTALL_VERSION=0.8.5
 ENV RUBY_VERSION=3.1.2
