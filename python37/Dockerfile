@@ -1,7 +1,7 @@
-FROM public.ecr.aws/e5r9m0c5/jenkins-jdk:v1.0.2
+FROM public.ecr.aws/e5r9m0c5/jenkins-jdk:v1.0.3
 
 # Ensure system is up to date and install tools
-RUN echo 'deb http://archive.ubuntu.com/ubuntu/ focal-proposed restricted main multiverse universe' > /etc/apt/sources.list.d/focal-proposed.list && \
+RUN echo 'deb http://archive.ubuntu.com/ubuntu/ jammy-proposed restricted main multiverse universe' > /etc/apt/sources.list.d/jammy-proposed.list && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt update && \
     apt install -y \
