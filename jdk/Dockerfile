@@ -1,4 +1,4 @@
-FROM ubuntu:jammy-20221130
+FROM ubuntu:jammy-20230308
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL=C.UTF-8
@@ -22,7 +22,8 @@ ENV DOCKER_COMPOSE_VERSION=1.29.2
 ENV KUBECTL_VERSION=v1.22.0
 ENV KOMPOSE_VERSION=v1.22.0
 
-ADD 01_nodoc /etc/dpkg/dpkg.conf.d/01_nodoc
+COPY 01_nodoc /etc/dpkg/dpkg.conf.d/01_nodoc
+COPY 01_norecommend /etc/apt/apt.conf.d/01_norecommend
 # Ensure system is up to date and install tools
 COPY jenkins-agent /usr/local/bin/jenkins-agent
 RUN echo '===> Starting setup' && \
@@ -30,8 +31,10 @@ RUN echo '===> Starting setup' && \
     echo '===> Installing apt dependencies' && \
     apt update && \
     apt install -y \
+        dirmngr \
         git \
         git-lfs \
+        gpg-agent \
         jq \
         python3-setuptools \
         iputils-ping \
@@ -172,4 +175,4 @@ RUN echo '===> Starting setup' && \
       /var/tmp/* \
       /tmp/*
 
-ENTRYPOINT ["jenkins-slave"]
+ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
